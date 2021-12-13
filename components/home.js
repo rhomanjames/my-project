@@ -11,9 +11,27 @@ function HomeTab () {
     
     return(
     <View style={{flex: 1}}>
-        <View style={{width: 200, height: 100, justifyContent:'center', background:'white', margin: 20, borderRadius: 20, }}>
+        <ScrollView horizontal={true} style={{padding:20, height: 150, width: '100%'}}>
 
-        </View>
+                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', width: 100}}>
+                    <View style={{backgroundColor: 'gold', width: 60, height: 60, alignItems: 'center', borderRadius: '50%', padding: 10, marginBottom: 10}}>
+                        <MaterialCommunityIcons name="book-open-variant" color='white' size={36} />
+                    </View>
+                    <Text style={{color: 'white', fontWeight: 'bold'}}>Daily Read</Text>
+                </View>
+                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', width: 100}}>
+                    <View style={{backgroundColor: 'gold', width: 60, height: 60, alignItems: 'center', borderRadius: '50%', padding: 10, marginBottom: 10}}>
+                        <MaterialCommunityIcons name="food" color='white' size={36} />
+                    </View>
+                    <Text style={{color: 'white', fontWeight: 'bold'}}>Recipes</Text>
+                </View>
+                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', width: 100}}>
+                    <View style={{backgroundColor: 'gold', width: 60, height: 60, alignItems: 'center', borderRadius: '50%', padding: 10, marginBottom: 10}}>
+                        <MaterialCommunityIcons name="pencil" color='white' size={36} />
+                    </View>
+                    <Text style={{color: 'white', fontWeight: 'bold'}}>Journal</Text>
+                </View>
+        </ScrollView>
                <ScrollView showsVerticalScrollIndicator={false}>
         <RowOfRectImages 
         title="Top Reads"
