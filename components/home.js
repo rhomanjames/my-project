@@ -31,6 +31,30 @@ function HomeTab () {
                     </View>
                     <Text style={{color: 'white', fontWeight: 'bold'}}>Journal</Text>
                 </View>
+                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', width: 100}}>
+                    <View style={{backgroundColor: 'gold', width: 60, height: 60, alignItems: 'center', borderRadius: '50%', padding: 10, marginBottom: 10}}>
+                        <MaterialCommunityIcons name="human-male-girl" color='white' size={36} />
+                    </View>
+                    <Text style={{color: 'white', fontWeight: 'bold'}}>Kids</Text>
+                </View>
+                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', width: 100}}>
+                    <View style={{backgroundColor: 'gold', width: 60, height: 60, alignItems: 'center', borderRadius: '50%', padding: 10, marginBottom: 10}}>
+                        <MaterialCommunityIcons name="dumbbell" color='white' size={36} />
+                    </View>
+                    <Text style={{color: 'white', fontWeight: 'bold'}}>Workout</Text>
+                </View>
+                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', width: 100}}>
+                    <View style={{backgroundColor: 'gold', width: 60, height: 60, alignItems: 'center', borderRadius: '50%', padding: 10, marginBottom: 10}}>
+                        <MaterialCommunityIcons name="head-dots-horizontal" color='white' size={36} />
+                    </View>
+                    <Text style={{color: 'white', fontWeight: 'bold'}}>Meditate</Text>
+                </View>
+                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', width: 100}}>
+                    <View style={{backgroundColor: 'gold', width: 60, height: 60, alignItems: 'center', borderRadius: '50%', padding: 10, marginBottom: 10}}>
+                        <MaterialCommunityIcons name="human-handsup" color='white' size={36} />
+                    </View>
+                    <Text style={{color: 'white', fontWeight: 'bold'}}>Pray</Text>
+                </View>
         </ScrollView>
                <ScrollView showsVerticalScrollIndicator={false}>
         <RowOfRectImages 
