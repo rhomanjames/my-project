@@ -1,11 +1,14 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Image, ScrollView } from 'react-native';
 import Music from './components/Music';
 import Home from './components/Home';
 import Audio from './components/Audio';
 import Video from './components/video';
 import Reader from './components/read';
 import Header from './components/Header';
+import ReactPlayer from 'react-player';
+import RowOfRectImages from './components/RowOfImages';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -40,10 +43,17 @@ function Watch() {
 
 function Play() {
   return (
-    <View style={{ flex: 1, backgroundColor: '#202020' }}>
-      <Header />
-      <Text>Play</Text>
+    <View style={{backgroundColor: '#202020', flex: 1}}>
+      <Header/>
+      
+        <View style={{ position: 'relative', paddingBottom: '56.25%' }}>
+          <ReactPlayer style={{top: 0, left:0, position:'absolute', minWidth: '100%', marginBottom: 10}} width="70%" height="70%" controls='1' url='https://vimeo.com/556753538' />
+        </View>
+        <View style={{bottom: 0, position: 'relative', marginTop: 30}}>
+         <Text>Test</Text>
+        </View>
     </View>
+
   );
 }
 
@@ -61,9 +71,9 @@ const Tab = createBottomTabNavigator();
 function MyTabs() {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Play"
       screenOptions={{
-        tabBarActiveTintColor: 'gold', headerShown: false, tabBarInactiveBackgroundColor:'#202020', tabBarActiveBackgroundColor:'#202020',  elevation: 0,   // for Android
+       tabBarActiveTintColor: 'gold', headerShown: false, tabBarInactiveBackgroundColor:'#202020', tabBarActiveBackgroundColor:'#202020',  elevation: 0,   // for Android
       }}
     >
       <Tab.Screen
@@ -84,6 +94,7 @@ function MyTabs() {
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="music" color={color} size={size} />
           ),
+
         }}
       />
       <Tab.Screen
@@ -114,6 +125,7 @@ function MyTabs() {
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="google-controller" color={color} size={size} />
           ),
+          tabBarVisible: false,
         }}
       />
     </Tab.Navigator>
