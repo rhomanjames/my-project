@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Text, View, Image, ScrollView } from 'react-native';
+import React, {useState} from 'react';
+import { Text, View, Image, ScrollView, Button } from 'react-native';
 import Music from './components/Music';
 import Home from './components/Home';
 import Audio from './components/Audio';
@@ -32,23 +32,32 @@ function Read() {
   );
 }
 
+
 function Watch() {
+  const [myVid, setmyVid] = useState('https://vimeo.com/556753538')
+
   return (
     <View style={{ flex: 1, backgroundColor: '#202020' }}>
       <Header />
       <Video />
     </View>
+    
   );
 }
 
 function Play() {
+
+  const [myVid, setmyVid] = useState('https://vimeo.com/556753538')
+
+
   return (
     <View style={{backgroundColor: '#202020', flex: 1}}>
       <Header/>
-      
+      <Button style={{position: 'relative'}} onPress={() => setmyVid("https://vimeo.com/489123665")}/>
         <View style={{ position: 'relative', paddingBottom: '56.25%' }}>
-          <ReactPlayer style={{top: 0, left:0, position:'absolute', minWidth: '100%', marginBottom: 10}} width="70%" height="70%" controls='1' url='https://vimeo.com/556753538' />
+          <ReactPlayer style={{top: 0, left:0, position:'absolute', minWidth: '100%', marginBottom: 10}} width="70%" height="70%" controls='1' url={myVid} />
         </View>
+        
         <View style={{bottom: 0, position: 'relative', marginTop: 30}}>
          <Text>Test</Text>
         </View>
@@ -71,7 +80,7 @@ const Tab = createBottomTabNavigator();
 function MyTabs() {
   return (
     <Tab.Navigator
-      initialRouteName="Play"
+      initialRouteName="Watch"
       screenOptions={{
        tabBarActiveTintColor: 'gold', headerShown: false, tabBarInactiveBackgroundColor:'#202020', tabBarActiveBackgroundColor:'#202020',  elevation: 0,   // for Android
       }}
@@ -80,7 +89,7 @@ function MyTabs() {
         name="Read"
         component={Read}
         options={{
-          tabBarLabel: 'Read',
+          tabBarLabel: 'Articles',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="book" color={color} size={size} />
           ),
@@ -90,7 +99,7 @@ function MyTabs() {
         name="Listen"
         component={Listen}
         options={{
-          tabBarLabel: 'Listen',
+          tabBarLabel: 'Music',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="music" color={color} size={size} />
           ),
@@ -111,7 +120,7 @@ function MyTabs() {
         name="Watch"
         component={Watch}
         options={{
-          tabBarLabel: 'Watch',
+          tabBarLabel: 'Videos',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="video" color={color} size={size} />
           ),

@@ -27,7 +27,7 @@ function RowOfRectImages (props)
                     <View style={{paddingLeft: 20, paddingTop: 10}}>
                         <Section title={props.title}subtitle={props.subtitle}/>
                         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                                <Img image={props.image1} />
+                                <TouchableOpacity onPress={() => setmyVid("https://vimeo.com/489123665")}><Img  image={props.image1} id={props.vid1} /></TouchableOpacity>
                                 <Img image={props.image2} />
                                 <Img image={props.image3} />
                                 <Img image={props.image4} />
