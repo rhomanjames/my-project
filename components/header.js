@@ -4,16 +4,16 @@ import { Text, View } from 'react-native';
 
 function Header () {
     return(
-    <View style={{ width:'100%', position: 'sticky', top: 0, zIndex: 1, backgroundColor:'#202020', flexDirection: 'row', justifyContent: 'space-between', padding: 5, borderBottomColor: 'white', borderBottomWidth: 1}}>
+    <View style={{ width:'100%', position: 'sticky', top: 0, zIndex: 1, backgroundColor:'#202020', flexDirection: 'row', justifyContent: 'space-between', padding: 5, }}>
         <View style={{ width:'10%', justifyContent: 'left'}}>
-            <MaterialCommunityIcons name="menu" color='white' size={36} />
+            <MaterialCommunityIcons name="" color='white' size={36} />
         </View>
         <View style={{ width:'80%', alignItems: 'center', alignContent: 'center', justifyContent: 'center'}}>
         <MaterialCommunityIcons name="crown" color='gold' size={36} />
         </View>
         <View style={{ width:'10%', justifyContent: 'right', flex: 1, flexDirection:'row'}}>
-            <MaterialCommunityIcons name="magnify" color='white' size={36} />
-            <MaterialCommunityIcons name="account" color='white' size={36} />
+            <MaterialCommunityIcons name="" color='white' size={36} />
+            <MaterialCommunityIcons name="information-outline" color='white' size={36} />
         </View>
         
     </View>)

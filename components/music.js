@@ -1,225 +1,187 @@
-import React from 'react'
-import { StyleSheet, TouchableOpacity, View, Image, Text } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
-import { Audio } from 'expo-av'
-import { AntDesign } from '@expo/vector-icons';
+import * as React from 'react';
+import { Text, View, StyleSheet, Button, Image, FlatList } from 'react-native';
+import { Audio } from 'expo-av';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 
-const audioBookPlaylist = [
-	{
-		title: 'Whole World',
-		author: 'FilmedFromZion',
-		source: 'FilmedFromZion',
-		uri:
-			'https://res.cloudinary.com/usamobileappsllc/video/upload/v1631596510/x_Filmedfromzion_-_Got_the_whole_world_ealtus.mp3',
-		imageSource: 'https://i1.sndcdn.com/avatars-ax9xTHDVlqO0ecC3-x9eAMg-t500x500.jpg'
-	},
-	{
-		title: 'Hamlet - Act II',
-		author: 'William Shakespeare',
-		source: 'Librivox',
-		uri:
-			'https://ia600204.us.archive.org/11/items/hamlet_0911_librivox/hamlet_act2_shakespeare.mp3',
-		imageSource: 'https://i1.sndcdn.com/avatars-0LqwzGCkpzo14c82-ttuM5w-t500x500.jpg'
-	},
-	{
-		title: 'Hamlet - Act III',
-		author: 'William Shakespeare',
-		source: 'Librivox',
-		uri: 'http://www.archive.org/download/hamlet_0911_librivox/hamlet_act3_shakespeare.mp3',
-		imageSource: 'https://i1.sndcdn.com/avatars-ax9xTHDVlqO0ecC3-x9eAMg-t500x500.jpg'
-	},
-	{
-		title: 'Hamlet - Act IV',
-		author: 'William Shakespeare',
-		source: 'Librivox',
-		uri:
-			'https://ia800204.us.archive.org/11/items/hamlet_0911_librivox/hamlet_act4_shakespeare.mp3',
-		imageSource: 'https://i1.sndcdn.com/avatars-0LqwzGCkpzo14c82-ttuM5w-t500x500.jpg'
-	},
-	{
-		title: 'Hamlet - Act V',
-		author: 'William Shakespeare',
-		source: 'Librivox',
-		uri:
-			'https://ia600204.us.archive.org/11/items/hamlet_0911_librivox/hamlet_act5_shakespeare.mp3',
-		imageSource: 'https://i1.sndcdn.com/avatars-ax9xTHDVlqO0ecC3-x9eAMg-t500x500.jpg'
-	}
-]
+export default function Music () {
+  const [sound, setSound] = React.useState();
 
- class Music extends React.Component {
-	state = {
-		isPlaying: false,
-		playbackInstance: null,
-		currentIndex: 0,
-		volume: 1.0,
-		isBuffering: true
-	}
+  async function playSound() {
+    console.log('Loading Sound');
+    const { sound } = await Audio.Sound.createAsync('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3'
+    );
+    setSound(sound);
 
-	async componentDidMount() {
-		try {
-			await Audio.setAudioModeAsync({
-				allowsRecordingIOS: false,
-				interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-				playsInSilentModeIOS: true,
-				interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-				shouldDuckAndroid: true,
-				staysActiveInBackground: true,
-				playThroughEarpieceAndroid: true
-			})
+    console.log('Playing Sound');
+    await sound.playAsync(); }
 
-			this.loadAudio()
-		} catch (e) {
-			console.log(e)
-		}
-	}
+  React.useEffect(() => {
+    return sound
+      ? () => {
+          console.log('Unloading Sound');
+          sound.unloadAsync(); }
+      : undefined;
+  }, [sound]);
+  const DATA = [
+    {
+      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+      title: 'Wade in the Water',
+      subtitle: 'Sounds of Sinai',
+      image: 'https://i1.sndcdn.com/artworks-N7VU9LcY2McWRhrj-kdDXeg-t240x240.jpg'
+    },
+    {
+      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+      title: 'Praise Yah',
+      subtitle: 'Lorvins',
+    },
+    {
+        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+        title: 'Praise Yah',
+        subtitle: 'Lorvins',
+      },
+      {
+        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+        title: 'Praise Yah',
+        subtitle: 'Lorvins',
+      },
+      {
+        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+        title: 'Praise Yah',
+        subtitle: 'Lorvins',
+      },
+      {
+        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+        title: 'Praise Yah',
+        subtitle: 'Lorvins',
+      },
+      {
+        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+        title: 'Praise Yah',
+        subtitle: 'Lorvins',
+      },
+      {
+        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+        title: 'Praise Yah',
+        subtitle: 'Lorvins',
+      },
+      {
+        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+        title: 'Praise Yah',
+        subtitle: 'Lorvins',
+      },
+      {
+        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+        title: 'Praise Yah',
+        subtitle: 'Lorvins',
+      },
+      {
+          id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+          title: 'Praise Yah',
+          subtitle: 'Lorvins',
+        },
+        {
+          id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+          title: 'Praise Yah',
+          subtitle: 'Lorvins',
+        },
+        {
+          id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+          title: 'Praise Yah',
+          subtitle: 'Lorvins',
+        },
+        {
+          id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+          title: 'Praise Yah',
+          subtitle: 'Lorvins',
+        },
+        {
+          id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+          title: 'Praise Yah',
+          subtitle: 'Lorvins',
+        },
+        {
+          id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+          title: 'Praise Yah',
+          subtitle: 'Lorvins',
+        },
+        {
+          id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+          title: 'Praise Yah',
+          subtitle: 'Lorvins',
+        },
 
-	async loadAudio() {
-		const { currentIndex, isPlaying, volume } = this.state
+  ];
+  
+  const Item = ({ title, subtitle, image}) => (
+    <View style={styles.item}>
+    <Image styles={{width: 50, height: 50}} source={image}/>
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.subtitle}>{subtitle}</Text>
+    </View>
+  );
 
-		try {
-			const playbackInstance = new Audio.Sound()
-			const source = {
-				uri: audioBookPlaylist[currentIndex].uri
-			}
+  const renderItem = ({ item }) => <Item title={item.title} subtitle={item.subtitle} image={item.image}/>
+  
 
-			const status = {
-				shouldPlay: isPlaying,
-				volume: volume
-			}
+  return (
+    <View style={{flex: 1}}>
+        <View style={{flex: 1}}>
+            <ScrollView horizontal={true}>
+                <TouchableOpacity style={{backgroundColor: 'gold', borderRadius: 20, padding: 8, margin: 5, marginVertical: 10}}><Text>All</Text></TouchableOpacity>
+                <TouchableOpacity style={{backgroundColor: 'gold', borderRadius: 20, padding: 8, margin: 5, marginVertical: 10}}><Text>Choir</Text></TouchableOpacity>
+                <TouchableOpacity style={{backgroundColor: 'gold', borderRadius: 20, padding: 8, margin: 5, marginVertical: 10}}><Text>Rap/Hip Hop</Text></TouchableOpacity>
+                <TouchableOpacity style={{backgroundColor: 'gold', borderRadius: 20, padding: 8, margin: 5, marginVertical: 10}}><Text>RnB</Text></TouchableOpacity>
+                <TouchableOpacity style={{backgroundColor: 'gold', borderRadius: 20, padding: 8, margin: 5, marginVertical: 10}}><Text>Instrumentals</Text></TouchableOpacity>
+                <TouchableOpacity style={{backgroundColor: 'gold', borderRadius: 20, padding: 8, margin: 5, marginVertical: 10}}><Text>Chill</Text></TouchableOpacity>
+                <TouchableOpacity style={{backgroundColor: 'gold', borderRadius: 20, padding: 8, margin: 5, marginVertical: 10}}><Text>Piano</Text></TouchableOpacity>
+            </ScrollView>
+        </View>
+        <View style={styles.container}>
+        <FlatList data={DATA} renderItem={renderItem} keyExtractor={item => item.id} />
+        </View>
+        <View style={{backgroundColor: '#a6a6a6', flex: 1, bottom: 0, borderColor: 'black', width: '100%', flexDirection: 'row', alignItems:'center', justifyContent: 'center'}}>
+            <View style={{width: '100%', flex: 1, flexDirection: 'row', paddingHorizontal:10}}>
+            <Image style={{width: 30, height:30, marginLeft: 5}} source={{uri: 'https://i1.sndcdn.com/artworks-N7VU9LcY2McWRhrj-kdDXeg-t240x240.jpg'}}/>
+                <View style={{textAlign: 'left', flex: 1, marginLeft: 5}}>
+                    <Text style={{fontWeight:'bold', color: 'black', fontSize: 15}}>Prodigal Son</Text>
+                    <Text style={{ color: 'black', fontSize: 12}}>NoNameServant</Text>
+                </View>
+                <View style={{flexDirection: 'row', justifyContent: 'right', flex: 1, alignItems:'center', position: 'absolute', width: '98%', paddingRight: 10}}>
+                    <TouchableOpacity title="Play Sound" onPress={playSound} >
+                    <MaterialCommunityIcons name="skip-backward" color="black" size={36}/>
+                </TouchableOpacity>
+                <TouchableOpacity style={{marginHorizontal: 5}} title="Play Sound" onPress={playSound} >
+                    <MaterialCommunityIcons name="pause" color="black" size={36}/>
+                </TouchableOpacity>
+                <TouchableOpacity title="Play Sound" onPress={playSound} >
+                    <MaterialCommunityIcons name="skip-forward" color="black" size={36}/>
+                </TouchableOpacity>
+                </View>
+            </View>
 
-			playbackInstance.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate)
-			await playbackInstance.loadAsync(source, status, false)
-			this.setState({
-				playbackInstance
-			})
-		} catch (e) {
-			console.log(e)
-		}
-	}
-
-	onPlaybackStatusUpdate = status => {
-		this.setState({
-			isBuffering: status.isBuffering
-		})
-	}
-
-	handlePlayPause = async () => {
-		const { isPlaying, playbackInstance } = this.state
-		isPlaying ? await playbackInstance.pauseAsync() : await playbackInstance.playAsync()
-
-		this.setState({
-			isPlaying: !isPlaying
-		})
-	}
-
-	handlePreviousTrack = async () => {
-		let { playbackInstance, currentIndex } = this.state
-		if (playbackInstance) {
-			await playbackInstance.unloadAsync()
-			currentIndex < audioBookPlaylist.length - 1 ? (currentIndex -= 1) : (currentIndex = 0)
-			this.setState({
-				currentIndex
-			})
-			this.loadAudio()
-		}
-	}
-
-	handleNextTrack = async () => {
-		let { playbackInstance, currentIndex } = this.state
-		if (playbackInstance) {
-			await playbackInstance.unloadAsync()
-			currentIndex < audioBookPlaylist.length - 1 ? (currentIndex += 1) : (currentIndex = 0)
-			this.setState({
-				currentIndex
-			})
-			this.loadAudio()
-		}
-	}
-
-	renderFileInfo() {
-		const { playbackInstance, currentIndex } = this.state
-		return playbackInstance ? (
-			<View style={styles.trackInfo}>
-				<Text style={[styles.trackInfoText, styles.largeText]}>
-					{audioBookPlaylist[currentIndex].title}
-				</Text>
-				<Text style={[styles.trackInfoText, styles.smallText]}>
-					{audioBookPlaylist[currentIndex].author}
-				</Text>
-				<Text style={[styles.trackInfoText, styles.smallText]}>
-					{audioBookPlaylist[currentIndex].source}
-				</Text>
-			</View>
-		) : null
-	}
-
-	render() {
-    const { uri, currentIndex } = this.state
-		return (
-			<View style={styles.container}>
-				<Image
-					style={styles.albumCover}
-					source={audioBookPlaylist[currentIndex].imageSource}
-				/>
-				<View style={styles.controls}>
-					<TouchableOpacity style={styles.control} onPress={this.handlePreviousTrack}>
-            <AntDesign name="banckward" size={48} color="white" />
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.control} onPress={this.handlePlayPause}>
-						{this.state.isPlaying ? (
-							<Ionicons name='ios-pause' size={48} color='white' />
-						) : (
-							<Ionicons name='ios-play-circle' size={48} color='white' />
-						)}
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.control} onPress={this.handleNextTrack}>
-            <AntDesign name="forward" size={48} color="white" />
-					</TouchableOpacity>
-				</View>
-				{this.renderFileInfo()}
-			</View>
-		)
-	}
+        </View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center',
-    backgroundColor: '#202020'
-	},
-	albumCover: {
-        marginVertical: 20,
-		width: 300, 
-    height: 300, 
-    borderRadius: 5,
-	},
-	trackInfo: {
-		padding: 40,
-		backgroundColor: '#', 
+  container: {
+    flex: 8,
+    justifyContent: 'center',
+    backgroundColor: '#0202',
+    padding: 10,
+    paddingBottom: 0,
+  },
+  item: {
+    borderBottomWidth: 1,
+    padding: 3,
+  },
+  title: {
+      fontSize: 17,
     color: 'white'
-	},
-
-	trackInfoText: {
-		textAlign: 'center',
-		flexWrap: 'wrap',
-		color: 'white'
-	},
-	largeText: {
-		fontSize: 22,
-    fontWeight: 'bold',
-	},
-	smallText: {
-		fontSize: 16
-	},
-	control: {
-		margin: 20,
-    color: 'white'
-	},
-	controls: {
-		flexDirection: 'row'
-	}
-})
-
-export default Music
+  },
+  subtitle: {
+      color: 'gray'
+  }
+});

@@ -20,7 +20,7 @@ function HomeTab () {
     
     return(
     <View style={{flex: 1}}>
-        <ScrollView horizontal={true} style={{padding:5, paddingVertical: 20, width: '100%'}}>
+       {/*} <ScrollView horizontal={true} style={{padding:5, paddingVertical: 20, width: '100%'}}>
 
         `       <HomeIcon icon='account-child' title='Kids'/>
                 <HomeIcon icon='book' title='Quick Read'/>
@@ -29,7 +29,7 @@ function HomeTab () {
                 <HomeIcon icon='dumbbell' title='Workout'/>
                 <HomeIcon icon='pencil' title='Journal'/>
                 
-        </ScrollView>
+    </ScrollView>*/}
                <ScrollView showsVerticalScrollIndicator={false}>
         <RowOfRectImages 
         title="Top Reads"
