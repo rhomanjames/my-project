@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Text, View, Image, Button, ScrollView } from 'react-native';
+import Scripture from './scripture';
 import Header from './Header';
 
 import RowOfRectImages from './RowOfImages';
@@ -16,11 +17,13 @@ function HomeIcon (props){
         </View>)
 }
 
+
+
 function HomeTab () {
     
     return(
     <View style={{flex: 1}}>
-       {/*} <ScrollView horizontal={true} style={{padding:5, paddingVertical: 20, width: '100%'}}>
+       {/* <ScrollView horizontal={true} style={{padding:5, paddingVertical: 20, width: '100%', marginVertical: 10}}>
 
         `       <HomeIcon icon='account-child' title='Kids'/>
                 <HomeIcon icon='book' title='Quick Read'/>
@@ -29,7 +32,12 @@ function HomeTab () {
                 <HomeIcon icon='dumbbell' title='Workout'/>
                 <HomeIcon icon='pencil' title='Journal'/>
                 
-    </ScrollView>*/}
+    </ScrollView> */}
+        <ScrollView>
+     <Scripture 
+        verse="For this is the love of Elohim, that we keep his commandments, and his commandments are not grievous." 
+        location="1 John 5:3"
+        action="How can you ensure that you are keeping Yah's commandments, and they are not grievous unto you?"/> 
                <ScrollView showsVerticalScrollIndicator={false}>
         <RowOfRectImages 
         title="Top Reads"
@@ -75,7 +83,7 @@ function HomeTab () {
         image10="https://images.squarespace-cdn.com/content/v1/58535279e3df28f58aa0db40/1495204268042-BFFV0TO6QUHFEW409EP8/youtube-thumbnail-lifes-algorithm.jpg?format=750w"
             />
     </ScrollView>    
-
+    </ScrollView>
     </View>)
 }
 

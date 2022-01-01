@@ -1,35 +1,248 @@
-import React, {useState} from 'react';
+import React from 'react'
+import { StyleSheet, TouchableOpacity, View, Image, Text } from 'react-native'
+import { Ionicons } from '@expo/vector-icons'
+import { Audio } from 'expo-av'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Text, View, Image, Button, ScrollView } from 'react-native';
-import Header from './Header';
 
-import RowOfSquareImages from './RowOfSquareImages';
 
-function Audio () {
+const audioBookPlaylist = [
+	{
+		title: 'Cut it Out ft. Noname Servant & Yoneigh',
+		author: 'Keliy Yahu Beats',
+		source: 'Single',
+		uri:
+			'https://samplelib.com/lib/preview/mp3/sample-3s.mp3',
+		imageSource: 'https://cdns-images.dzcdn.net/images/artist/3f7f32556f25af6321917f17c6d6bb1d/500x500.jpg'
+	},
+	{
+		title: 'Hamlet - Act II',
+		author: 'William Shakespeare',
+		source: 'Librivox',
+		uri:
+			'https://ia600204.us.archive.org/11/items/hamlet_0911_librivox/hamlet_act2_shakespeare.mp3',
+		imageSource: 'http://www.archive.org/download/LibrivoxCdCoverArt8/hamlet_1104.jpg'
+	},
+	{
+		title: 'Hamlet - Act III',
+		author: 'William Shakespeare',
+		source: 'Librivox',
+		uri: 'http://www.archive.org/download/hamlet_0911_librivox/hamlet_act3_shakespeare.mp3',
+		imageSource: 'http://www.archive.org/download/LibrivoxCdCoverArt8/hamlet_1104.jpg'
+	},
+	{
+		title: 'Hamlet - Act IV',
+		author: 'William Shakespeare',
+		source: 'Librivox',
+		uri:
+			'https://ia800204.us.archive.org/11/items/hamlet_0911_librivox/hamlet_act4_shakespeare.mp3',
+		imageSource: 'http://www.archive.org/download/LibrivoxCdCoverArt8/hamlet_1104.jpg'
+	},
+	{
+		title: 'Hamlet - Act V',
+		author: 'William Shakespeare',
+		source: 'Librivox',
+		uri:
+			'https://ia600204.us.archive.org/11/items/hamlet_0911_librivox/hamlet_act5_shakespeare.mp3',
+		imageSource: 'http://www.archive.org/download/LibrivoxCdCoverArt8/hamlet_1104.jpg'
+	}
+]
 
-    
-    return(
-        
-    <View style={{flex: 1}}>
-               <ScrollView showsVerticalScrollIndicator={false}>
-        <RowOfSquareImages 
-        title="Trending"
-        subtitle="New tracks to glorify Yah"
-        image1="https://i1.sndcdn.com/artworks-ANJ5yMXRM4fRmBb6-wjNz3w-t500x500.jpg"
-        image2="https://i1.sndcdn.com/artworks-000630834745-wujzzw-t500x500.jpg"
-        image3="https://i1.sndcdn.com/artworks-Od0ZlFPaiQHB2dv5-GQxtzA-t500x500.jpg"
-        image4="https://images.squarespace-cdn.com/content/v1/58535279e3df28f58aa0db40/1495204268042-BFFV0TO6QUHFEW409EP8/youtube-thumbnail-lifes-algorithm.jpg?format=750w"
-        image5="https://images.squarespace-cdn.com/content/v1/58535279e3df28f58aa0db40/1495204268042-BFFV0TO6QUHFEW409EP8/youtube-thumbnail-lifes-algorithm.jpg?format=750w"
-        image6="https://images.squarespace-cdn.com/content/v1/58535279e3df28f58aa0db40/1495204268042-BFFV0TO6QUHFEW409EP8/youtube-thumbnail-lifes-algorithm.jpg?format=750w"
-        image7="https://images.squarespace-cdn.com/content/v1/58535279e3df28f58aa0db40/1495204268042-BFFV0TO6QUHFEW409EP8/youtube-thumbnail-lifes-algorithm.jpg?format=750w"
-        image8="https://images.squarespace-cdn.com/content/v1/58535279e3df28f58aa0db40/1495204268042-BFFV0TO6QUHFEW409EP8/youtube-thumbnail-lifes-algorithm.jpg?format=750w"
-        image9="https://images.squarespace-cdn.com/content/v1/58535279e3df28f58aa0db40/1495204268042-BFFV0TO6QUHFEW409EP8/youtube-thumbnail-lifes-algorithm.jpg?format=750w"
-        image10="https://images.squarespace-cdn.com/content/v1/58535279e3df28f58aa0db40/1495204268042-BFFV0TO6QUHFEW409EP8/youtube-thumbnail-lifes-algorithm.jpg?format=750w"
-            />
-           
-    </ScrollView>    
+export default class App extends React.Component {
+	state = {
+		isPlaying: false,
+		playbackInstance: null,
+		currentIndex: 0,
+		volume: 1.0,
+		isBuffering: true
+	}
 
-    </View>)
+	async componentDidMount() {
+		try {
+			await Audio.setAudioModeAsync({
+				allowsRecordingIOS: false,
+				interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+				playsInSilentModeIOS: true,
+				interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+				shouldDuckAndroid: true,
+				staysActiveInBackground: true,
+				playThroughEarpieceAndroid: true
+			})
+
+			this.loadAudio()
+		} catch (e) {
+			console.log(e)
+		}
+	}
+
+
+
+	async loadAudio() {
+		const { currentIndex, isPlaying, volume } = this.state
+
+		try {
+			const playbackInstance = new Audio.Sound()
+			const source = {
+				uri: audioBookPlaylist[currentIndex].uri
+			}
+
+			const status = {
+				shouldPlay: isPlaying,
+				volume: volume
+			}
+			
+
+			playbackInstance.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate)
+			await playbackInstance.loadAsync(source, status, false)
+			this.setState({
+				playbackInstance
+			})
+
+			playbackInstance.setOnPlaybackStatusUpdate((playbackStatus) => {
+				playbackStatus.didJustFinish ? this.setState({
+					currentIndex: (Math.floor(Math.random() * (audioBookPlaylist.length - 1))),
+					isPlaying: !isPlaying
+					}) : 
+						console.log('test')
+				
+		
+			}) 
+			
+		} catch (e) {
+			console.log(e)
+		}
+	}
+
+
+
+
+	onPlaybackStatusUpdate = status => {
+		this.setState({
+			isBuffering: status.isBuffering
+		})
+	}
+
+	handlePlayPause = async () => {
+		const { isPlaying, playbackInstance } = this.state
+		isPlaying ? await playbackInstance.pauseAsync() : await playbackInstance.playAsync()
+
+		this.setState({
+			isPlaying: !isPlaying
+		})
+	}
+	
+
+	handlePreviousTrack = async () => {
+		let { playbackInstance, currentIndex } = this.state
+		if (playbackInstance) {
+			await playbackInstance.unloadAsync()
+			currentIndex < audioBookPlaylist.length - 1 ? (currentIndex -= 1) : (currentIndex = 1)
+			this.setState({
+				currentIndex
+			})
+			this.loadAudio()
+		}
+	}
+
+	handleNextTrack = async () => {
+		let { playbackInstance, currentIndex } = this.state
+		if (playbackInstance) {
+			console.log(playbackInstance)
+			await playbackInstance.unloadAsync()
+			currentIndex < 0 ? (currentIndex  = Math.floor(Math.random() * (audioBookPlaylist.length - 1))) : (currentIndex = Math.floor(Math.random() * (audioBookPlaylist.length - 1)))
+			console.log(currentIndex)
+			this.setState({
+				currentIndex
+			})
+			this.loadAudio()
+		}
+	}
+
+	renderFileInfo() {
+		const { playbackInstance, currentIndex } = this.state
+		return playbackInstance ? (
+			<View style={styles.trackInfo}>
+				<View style={{ alignItems: 'center'}}>
+				<Image
+					style={styles.albumCover}
+					source={audioBookPlaylist[currentIndex].imageSource}
+				/>
+				</View>
+				<Text style={[styles.trackInfoText, styles.largeText]}>
+					{audioBookPlaylist[currentIndex].title}
+				</Text>
+				<Text style={[styles.trackInfoText, styles.smallText]}>
+					{audioBookPlaylist[currentIndex].author}
+				</Text>
+				<Text style={[styles.trackInfoText, styles.smallText]}>
+					{audioBookPlaylist[currentIndex].source}
+				</Text>
+			</View>
+		) : null
+	}
+
+	render() {
+		return (
+			<View style={styles.container}>
+				<Text style={styles.largeText}>Serving Yah Radio 24/7</Text>
+				{this.renderFileInfo()}
+				<View style={styles.controls}>
+					<TouchableOpacity style={styles.control} onPress={this.handlePreviousTrack}>
+					<MaterialCommunityIcons name="skip-backward" color="gold" size={48} />
+					</TouchableOpacity>
+					<TouchableOpacity style={styles.control} onPress={this.handlePlayPause}>
+						{this.state.isPlaying ? (
+							<MaterialCommunityIcons name="pause" color="gold" size={48} />
+						) : (
+							<MaterialCommunityIcons name="play" color="gold" size={48} />
+						)}
+					</TouchableOpacity>
+					<TouchableOpacity style={styles.control} onPress={this.handleNextTrack}>
+					<MaterialCommunityIcons name="skip-forward" color="gold" size={48} />
+						</TouchableOpacity>
+				</View>
+			</View>
+		)
+	}
 }
 
-export default Audio
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: 'transparent',
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+	albumCover: {
+		width: 300,
+		height: 300, 
+		borderRadius: 20
+	},
+	trackInfo: {
+		paddingBottom: 40,
+		backgroundColor: 'transparent', 
+		justifyContent: 'center',
+		paddingHorizontal: 20,
+	},
+
+	trackInfoText: {
+		textAlign: 'center',
+		flexWrap: 'wrap',
+		color: '#550088'
+	},
+	largeText: {
+		fontSize: 22, 
+		fontWeight: 'bold',
+		color: 'white',
+		marginBottom:10,
+	},
+	smallText: {
+		fontSize: 16, 
+		color: 'white'
+	},
+	control: {
+		margin: 20
+	},
+	controls: {
+		flexDirection: 'row'
+	}
+})

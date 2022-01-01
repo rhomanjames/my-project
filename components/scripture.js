@@ -23,11 +23,11 @@ export default function Scripture (props) {
                 <Text style={{fontWeight: 'bold', color: 'black', marginVertical: 5}}>{props.location}</Text>
                 <Text style={{fontWeight: 'bold', color: 'grey', fontStyle: 'italic', textAlign: 'center', marginVertical: 15, }}>{props.action}</Text>
                 <View style={{flexDirection: 'row',justifyContent: 'space-between'}}>
-                <TouchableOpacity style={{padding: 10, borderRadius: '50%', backgroundColor: 'gold'}}><MaterialCommunityIcons name="twitter" color="black" size={24}/></TouchableOpacity>
-                <TouchableOpacity style={{padding: 10, borderRadius: '50%', backgroundColor: 'gold', marginHorizontal: 10}}><MaterialCommunityIcons name="facebook" color="black" size={24}/></TouchableOpacity>
-                <TouchableOpacity style={{padding: 10, borderRadius: '50%', backgroundColor: 'black'}}><MaterialCommunityIcons name="shuffle" color="gold" size={24}/></TouchableOpacity>
-                <TouchableOpacity onPress={copyToClipboard}  style={{padding: 10, borderRadius: '50%', backgroundColor: 'gold', marginHorizontal: 10}}><MaterialCommunityIcons name="content-copy" color="black" size={24}/></TouchableOpacity>
-                <TouchableOpacity style={{padding: 10, borderRadius: '50%', backgroundColor: 'gold'}}><MaterialCommunityIcons name="share" color="black" size={24}/></TouchableOpacity>
+                  <TouchableOpacity style={{padding: 10, borderRadius: '50%', backgroundColor: 'gold'}}><MaterialCommunityIcons name="twitter" color="black" size={24}/></TouchableOpacity>
+                  <TouchableOpacity style={{padding: 10, borderRadius: '50%', backgroundColor: 'gold', marginHorizontal: 10}}><MaterialCommunityIcons name="facebook" color="black" size={24}/></TouchableOpacity>
+                  <TouchableOpacity style={{padding: 10, borderRadius: '50%', backgroundColor: 'black'}}><MaterialCommunityIcons name="shuffle" color="gold" size={24}/></TouchableOpacity>
+                  <TouchableOpacity onPress={copyToClipboard}  style={{padding: 10, borderRadius: '50%', backgroundColor: 'gold', marginHorizontal: 10}}><MaterialCommunityIcons name="content-copy" color="black" size={24}/></TouchableOpacity>
+                  <TouchableOpacity style={{padding: 10, borderRadius: '50%', backgroundColor: 'gold'}}><MaterialCommunityIcons name="share" color="black" size={24}/></TouchableOpacity>
                 </View>
                 </View>
     

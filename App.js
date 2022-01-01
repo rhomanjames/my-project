@@ -5,7 +5,6 @@ import Home from './components/Home';
 import Audio from './components/Audio';
 import Video from './components/video';
 import Kid from './components/kids';
-import Scripture from './components/scripture';
 import Reader from './components/read';
 import Header from './components/Header';
 import * as Clipboard from 'expo-clipboard';
@@ -18,9 +17,10 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 function Listen() {
   return (
-    <View style={{ flex: 1, backgroundColor: '#202020', headerShown: false }}>
+    <View style={{flex:1, backgroundColor: '#202020', headerShown: false }}>
       <Header />
-      <Music />
+      <Audio />
+      {/*<Music />*/}
     </View>
   );
 }
@@ -49,7 +49,7 @@ function Watch() {
 
 function Play() {
   return (
-      <View style={{ flex: 1, backgroundColor: '#202020' }}>
+      <View showsVerticalScrollIndicator={false} style={{ flex: 1, backgroundColor: '#202020' }}>
         <Header />
     <Kid />
       </View>
@@ -58,13 +58,23 @@ function Play() {
 }
 
 function HomeTab() {
+
+  const [showMenu, setshowMenu] = useState('none')
   return (
     <View style={{ flex: 1, backgroundColor: '#202020' }}>
-      <Header />
-      <Scripture 
-        verse="For this is the love of Elohim, that we keep his commandments, and his commandments are not grievous." 
-        location="1 John 5:3"
-        action="How can you ensure that you are keeping Yah's commandments, and they are not grievous unto you?"/>
+      <View style={{backgroundColor: '#020202', width: 'fit-content', height: 'fit-content', position: 'absolute', zIndex: 2, padding: 10}}>
+        <View style={{justifyContent: 'flex-end', right: 0, top: 0, display:showMenu}}>
+        <MaterialCommunityIcons name="close" color="gold" size={24} />
+        </View>
+
+        <ScrollView style={{paddingTop: 15}}>
+        <View style={{flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: 'white', paddingVertical: 10}}><MaterialCommunityIcons name="calendar" color="gold" size={24} /><Text style={{color: 'white', marginHorizontal: 10}}>Calendar</Text></View>
+        <View style={{flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: 'white', paddingVertical: 10}}><MaterialCommunityIcons name="pencil" color="gold" size={24} /><Text style={{color: 'white', marginHorizontal: 10}}>Journal</Text></View>
+        <View style={{flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: 'white', paddingVertical: 10}}><MaterialCommunityIcons name="lock" color="gold" size={24} /><Text style={{color: 'white', marginHorizontal: 10}}>Privacy</Text></View>
+        <View style={{flexDirection: 'row', alignItems: 'center', borderBottomWidth: 0, borderBottomColor: 'white', paddingVertical: 10}}><MaterialCommunityIcons name="message" color="gold" size={24} /><Text style={{color: 'white', marginHorizontal: 10}}>Contact us</Text></View>
+        </ScrollView>
+      </View>
+      <Header onPress={()=> setshowMenu('block')}/>
       <Home />
     </View>
   );
@@ -76,6 +86,7 @@ function MyTabs() {
   return (
     <Tab.Navigator
       initialRouteName="Listen"
+      style={{maxWidth: '500px'}}
       screenOptions={{
        tabBarActiveTintColor: 'gold', headerShown: false, tabBarInactiveBackgroundColor:'#202020', tabBarActiveBackgroundColor:'#202020',  elevation: 0,   // for Android
       }}
@@ -137,8 +148,8 @@ function MyTabs() {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <MyTabs />
+    <NavigationContainer >
+      <MyTabs/>
     </NavigationContainer>
   );
 }

@@ -9,7 +9,7 @@ export default function Music () {
 
   async function playSound() {
     console.log('Loading Sound');
-    const { sound } = await Audio.Sound.createAsync('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3'
+    const { sound } = await Audio.Sound.createAsync('https://dts.podtrac.com/redirect.mp3/static1.squarespace.com/static/58535279e3df28f58aa0db40/t/5f2eee9568db76113a82ee71/1597226489713/Churchianity-29.mp3/original/Churchianity-29.mp3'
     );
     setSound(sound);
 
@@ -126,7 +126,7 @@ export default function Music () {
 
   return (
     <View style={{flex: 1}}>
-        <View style={{flex: 1}}>
+        <View style={{}}>
             <ScrollView horizontal={true}>
                 <TouchableOpacity style={{backgroundColor: 'gold', borderRadius: 20, padding: 8, margin: 5, marginVertical: 10}}><Text>All</Text></TouchableOpacity>
                 <TouchableOpacity style={{backgroundColor: 'gold', borderRadius: 20, padding: 8, margin: 5, marginVertical: 10}}><Text>Choir</Text></TouchableOpacity>
@@ -138,11 +138,11 @@ export default function Music () {
             </ScrollView>
         </View>
         <View style={styles.container}>
-        <FlatList data={DATA} renderItem={renderItem} keyExtractor={item => item.id} />
+          <Text id="testing123" onPress={() => alert(id)}>Test</Text>
         </View>
-        <View style={{backgroundColor: '#a6a6a6', flex: 1, bottom: 0, borderColor: 'black', width: '100%', flexDirection: 'row', alignItems:'center', justifyContent: 'center'}}>
+        <View style={{ display: 'none', backgroundColor: '#a6a6a6',  bottom: 0, borderColor: 'black', width: '100%', flexDirection: 'row', alignItems:'center', justifyContent: 'center'}}>
             <View style={{width: '100%', flex: 1, flexDirection: 'row', paddingHorizontal:10}}>
-            <Image style={{width: 30, height:30, marginLeft: 5}} source={{uri: 'https://i1.sndcdn.com/artworks-N7VU9LcY2McWRhrj-kdDXeg-t240x240.jpg'}}/>
+                <View style={{alignItems: 'center', justifyContent: 'center'}}><Image style={{width: 30, height:30, marginLeft: 5}} source={{uri: 'https://i1.sndcdn.com/artworks-N7VU9LcY2McWRhrj-kdDXeg-t240x240.jpg'}}/></View>
                 <View style={{textAlign: 'left', flex: 1, marginLeft: 5}}>
                     <Text style={{fontWeight:'bold', color: 'black', fontSize: 15}}>Prodigal Son</Text>
                     <Text style={{ color: 'black', fontSize: 12}}>NoNameServant</Text>
@@ -167,7 +167,8 @@ export default function Music () {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 8,
+    flex: 1,
+    display: 'none',
     justifyContent: 'center',
     backgroundColor: '#0202',
     padding: 10,

@@ -15,6 +15,7 @@ function Section (props) {
         <View style={{marginTop: 5 }}>
             <Text style={{fontSize: 20, fontWeight: 'bold', color: 'gold'}}>{props.title}</Text>
             <Text style={{color: 'white'}}>{props.subtitle}</Text>
+            <Text>{props.display}</Text>
         </View>
     )
 }
@@ -23,7 +24,8 @@ function Section (props) {
 
 function Video () {
 
-    const [myVid, setmyVid] = useState('https://vimeo.com/298865698')
+    const [myVid, setmyVid] = useState('https://vimeo.com/298865698');
+    const [myDisplay, setmyDisplay] = useState('block')
     
     function RowOfRectImages (props)  
 
@@ -31,10 +33,10 @@ function Video () {
     return (
     
                     <View style={{paddingLeft: 20, paddingTop: 10}}>
-                        <Section title={props.title}subtitle={props.subtitle}/>
+                        <Section title={props.title}subtitle={props.subtitle} />
                         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                                <TouchableOpacity onPress={() => setmyVid(props.vid1)}><Img  image={props.image1} id={props.vid1} /></TouchableOpacity>
-                                <TouchableOpacity onPress={() => setmyVid(props.vid2)}><Img  image={props.image2} id={props.vid2}/></TouchableOpacity>
+                                <TouchableOpacity onPress={() => setmyVid(props.vid1)}><Img  image={props.image1} id={props.vid1}  /></TouchableOpacity>
+                                <TouchableOpacity onPress={() => setmyVid(props.vid2)}><Img  image={props.image2} id={props.vid2} /></TouchableOpacity>
                                 <TouchableOpacity onPress={() => setmyVid(props.vid3)}><Img  image={props.image3} id={props.vid3}/></TouchableOpacity>
                                 <TouchableOpacity onPress={() => setmyVid(props.vid4)}><Img  image={props.image4} id={props.vid4}/></TouchableOpacity>
                                 <TouchableOpacity onPress={() => setmyVid(props.vid5)}><Img  image={props.image5} id={props.vid5}/></TouchableOpacity>
@@ -55,15 +57,18 @@ function Video () {
         
 
     <View style={{flex: 1}}>
-        <View style={{ position: 'relative', paddingBottom: '56.25%' }}>
+        <ScrollView>
+        <View style={{ position: 'relative', paddingBottom: '56.25%', display: `${myDisplay}`}}>
           <ReactPlayer style={{top: 0, left:0, position:'absolute', minWidth: '100%', marginBottom: 10}} width="100%" height="100%" controls='1' url={myVid} />
         </View>
                <ScrollView showsVerticalScrollIndicator={false}>
+                   
         <RowOfRectImages 
         title="History"
         subtitle="Learn all about the history of the Israelites"
         image1="https://images.squarespace-cdn.com/content/v1/58535279e3df28f58aa0db40/1482027043059-68AYKJXOWMG3M3FD3MUY/youtube-thumbnail-scattered1.jpg?format=300w"
         vid1="https://vimeo.com/298793818"
+        display="none"
 
         image2="https://images.squarespace-cdn.com/content/v1/58535279e3df28f58aa0db40/1482027010834-SI0HEIHYM1V1A34F8SFD/youtube-thumbnail-scattered2.jpg?format=300w"
         vid2="https://vimeo.com/298796957"
@@ -95,6 +100,7 @@ function Video () {
         vid10="https://vimeo.com/462243397"
 
             />
+            
             <RowOfRectImages 
         title="Spirit of the Law"
         subtitle="A loose, non-chronological series touching on the spiritual application of the Torah"
@@ -182,7 +188,7 @@ function Video () {
         image10="https://images.squarespace-cdn.com/content/v1/58535279e3df28f58aa0db40/1495204268042-BFFV0TO6QUHFEW409EP8/youtube-thumbnail-lifes-algorithm.jpg?format=750w"
             />
     </ScrollView>    
-
+    </ScrollView>
     </View>
     
     )
