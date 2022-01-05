@@ -62,19 +62,19 @@ function HomeTab() {
   const [showMenu, setshowMenu] = useState('none')
   return (
     <View style={{ flex: 1, backgroundColor: '#202020' }}>
-      <View style={{backgroundColor: '#020202', width: 'fit-content', height: 'fit-content', position: 'absolute', zIndex: 2, padding: 10}}>
-        <View style={{justifyContent: 'flex-end', right: 0, top: 0, display:showMenu}}>
+      <View style={{backgroundColor: '#020202', width: 'fit-content', height: 'fit-content', position: 'absolute', zIndex: 2, padding: 10, display:showMenu}}>
+        <View style={{justifyContent: 'flex-end', right: 0, top: 0, }}>
         <MaterialCommunityIcons name="close" color="gold" size={24} />
         </View>
 
-        <ScrollView style={{paddingTop: 15}}>
+        <ScrollView style={{paddingTop: 15,}}>
         <View style={{flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: 'white', paddingVertical: 10}}><MaterialCommunityIcons name="calendar" color="gold" size={24} /><Text style={{color: 'white', marginHorizontal: 10}}>Calendar</Text></View>
         <View style={{flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: 'white', paddingVertical: 10}}><MaterialCommunityIcons name="pencil" color="gold" size={24} /><Text style={{color: 'white', marginHorizontal: 10}}>Journal</Text></View>
         <View style={{flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: 'white', paddingVertical: 10}}><MaterialCommunityIcons name="lock" color="gold" size={24} /><Text style={{color: 'white', marginHorizontal: 10}}>Privacy</Text></View>
         <View style={{flexDirection: 'row', alignItems: 'center', borderBottomWidth: 0, borderBottomColor: 'white', paddingVertical: 10}}><MaterialCommunityIcons name="message" color="gold" size={24} /><Text style={{color: 'white', marginHorizontal: 10}}>Contact us</Text></View>
         </ScrollView>
       </View>
-      <Header onPress={()=> setshowMenu('block')}/>
+      <Header onPress={()=> setshowMenu('none')}/>
       <Home />
     </View>
   );

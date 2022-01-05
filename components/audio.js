@@ -7,12 +7,12 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const audioBookPlaylist = [
 	{
-		title: 'Cut it Out ft. Noname Servant & Yoneigh',
-		author: 'Keliy Yahu Beats',
-		source: 'Single',
+		title: 'Wade in the Water',
+		author: 'Sounds of Sinai',
+		source: 'Monotheism',
 		uri:
 			'https://samplelib.com/lib/preview/mp3/sample-3s.mp3',
-		imageSource: 'https://cdns-images.dzcdn.net/images/artist/3f7f32556f25af6321917f17c6d6bb1d/500x500.jpg'
+		imageSource: 'https://m.media-amazon.com/images/I/51GZ+-0zGhL.jpg'
 	},
 	{
 		title: 'Hamlet - Act II',
@@ -51,9 +51,10 @@ export default class App extends React.Component {
 	state = {
 		isPlaying: false,
 		playbackInstance: null,
-		currentIndex: 0,
+		currentIndex: Math.floor(Math.random() * (audioBookPlaylist.length - 1)),
 		volume: 1.0,
-		isBuffering: true
+		isBuffering: true,
+		isLooping: true
 	}
 
 	async componentDidMount() {
@@ -82,13 +83,15 @@ export default class App extends React.Component {
 		try {
 			const playbackInstance = new Audio.Sound()
 			const source = {
-				uri: audioBookPlaylist[currentIndex].uri
+				uri: audioBookPlaylist[currentIndex].uri,
+				imageSource: audioBookPlaylist[currentIndex].imageSource
 			}
 
 			const status = {
 				shouldPlay: isPlaying,
 				volume: volume
 			}
+			
 			
 
 			playbackInstance.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate)
@@ -97,15 +100,16 @@ export default class App extends React.Component {
 				playbackInstance
 			})
 
+			
 			playbackInstance.setOnPlaybackStatusUpdate((playbackStatus) => {
-				playbackStatus.didJustFinish ? this.setState({
-					currentIndex: (Math.floor(Math.random() * (audioBookPlaylist.length - 1))),
-					isPlaying: !isPlaying
-					}) : 
-						console.log('test')
-				
-		
-			}) 
+				playbackStatus.didJustFinish ? console.log('done') : console.log('playing')
+			})
+			
+			playbackInstance.setOnPlaybackStatusUpdate((playbackStatus) => {
+				playbackStatus.didJustFinish ? this.loadAudio () : console.log('playing')
+			})
+
+
 			
 		} catch (e) {
 			console.log(e)
@@ -121,10 +125,11 @@ export default class App extends React.Component {
 		})
 	}
 
-	handlePlayPause = async () => {
-		const { isPlaying, playbackInstance } = this.state
-		isPlaying ? await playbackInstance.pauseAsync() : await playbackInstance.playAsync()
 
+	handlePlayPause = async () => {
+		const { isPlaying, playbackInstance, currentIndex } = this.state
+		isPlaying ? await playbackInstance.pauseAsync() : await playbackInstance.playAsync()
+		console.log(currentIndex)
 		this.setState({
 			isPlaying: !isPlaying
 		})
@@ -142,14 +147,13 @@ export default class App extends React.Component {
 			this.loadAudio()
 		}
 	}
-
+ 
 	handleNextTrack = async () => {
 		let { playbackInstance, currentIndex } = this.state
+		 
 		if (playbackInstance) {
-			console.log(playbackInstance)
 			await playbackInstance.unloadAsync()
-			currentIndex < 0 ? (currentIndex  = Math.floor(Math.random() * (audioBookPlaylist.length - 1))) : (currentIndex = Math.floor(Math.random() * (audioBookPlaylist.length - 1)))
-			console.log(currentIndex)
+			currentIndex = Math.floor(Math.random() * (audioBookPlaylist.length - 1))
 			this.setState({
 				currentIndex
 			})
@@ -186,9 +190,9 @@ export default class App extends React.Component {
 				<Text style={styles.largeText}>Serving Yah Radio 24/7</Text>
 				{this.renderFileInfo()}
 				<View style={styles.controls}>
-					<TouchableOpacity style={styles.control} onPress={this.handlePreviousTrack}>
+					{/*<TouchableOpacity style={styles.control} onPress={this.handlePreviousTrack}>
 					<MaterialCommunityIcons name="skip-backward" color="gold" size={48} />
-					</TouchableOpacity>
+		</TouchableOpacity>*/}
 					<TouchableOpacity style={styles.control} onPress={this.handlePlayPause}>
 						{this.state.isPlaying ? (
 							<MaterialCommunityIcons name="pause" color="gold" size={48} />
@@ -240,7 +244,7 @@ const styles = StyleSheet.create({
 		color: 'white'
 	},
 	control: {
-		margin: 20
+		padding: 10
 	},
 	controls: {
 		flexDirection: 'row'
